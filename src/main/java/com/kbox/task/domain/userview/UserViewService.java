@@ -24,12 +24,26 @@ public class UserViewService {
         this.userService = userService;
     }
 
+    /**
+     * This method create UserView data by given reqeust object
+     *
+     * @param createUserViewRequest this object contains currentuser,viewer id
+     * @return
+     */
+    //TODO: Kafka integration
     public UserViewResponse createUserView(CreateUserViewRequest createUserViewRequest) {
         if (Objects.isNull(createUserViewRequest))
             throw new IllegalArgumentException("Request is null");
         return UserViewResponse.toResponse(userViewRepository.save(createUserViewRequest.toEntity()));
     }
 
+    /**
+     * This method allow to list userviews.
+     *
+     * @param currentUser
+     * @param pageable
+     * @return UserViewListResponse you can use cache for userService.getById in this method
+     */
     public UserViewListResponse getList(String currentUser, Pageable pageable) {
         if (Objects.isNull(currentUser) || Objects.isNull(pageable))
             throw new IllegalArgumentException("Request objects are null");
